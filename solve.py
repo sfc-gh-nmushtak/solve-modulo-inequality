@@ -1,5 +1,3 @@
-from math import gcd
-
 all_m_scales = []
 
 # Appendix B of https://arxiv.org/pdf/2101.11408.pdf
