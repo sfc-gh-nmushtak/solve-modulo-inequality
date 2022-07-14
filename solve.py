@@ -58,12 +58,13 @@ def convergents(cf):
 
 if __name__ == "__main__":
     # Enumerate through all the convergents of T[q] / 2^137 with denominators < 2^64
+    LEAST_SIGNIFICANT_BITS = 137
     for j, tq in enumerate(all_tqs):
-        for z, w in convergents(continued_fraction(tq, 2**137)):
+        for _, w in convergents(continued_fraction(tq, 2**LEAST_SIGNIFICANT_BITS)):
             if w >= 2**64:
                 break
 
             # Verify that all but the trailing 64 bits of the least significant 137 bits of T[q]*w are 1 bits
-            mask = (2**137-1) >> 64
-            if ((tq*w) >> 64) & mask == mask:
+            mask = (1 << LEAST_SIGNIFICANT_BITS)-(1 << 64)
+            if (tq*w) & mask == mask:
                 print(f"SOLUTION: q={j-342} T[q]={tq} w={w}")
