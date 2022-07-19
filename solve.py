@@ -59,6 +59,7 @@ def convergents(cf):
 if __name__ == "__main__":
     # Enumerate through all the convergents of T[q] / 2^137 with denominators < 2^64
     LEAST_SIGNIFICANT_BITS = 137
+    found_solution = False
     for j, tq in enumerate(all_tqs):
         for _, w in convergents(continued_fraction(tq, 2**LEAST_SIGNIFICANT_BITS)):
             if w >= 2**64:
@@ -68,3 +69,6 @@ if __name__ == "__main__":
             mask = (1 << LEAST_SIGNIFICANT_BITS)-(1 << 64)
             if (tq*w) & mask == mask:
                 print(f"SOLUTION: q={j-342} T[q]={tq} w={w}")
+                found_solution = True
+    if not found_solution:
+        print("No solutions!")
